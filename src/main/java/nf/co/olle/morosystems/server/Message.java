@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="messages")
@@ -21,9 +22,13 @@ public class Message implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
+	
+	@NotNull
 	private String name;
 	private String email;
+	@NotNull
 	private String message;
+	@NotNull
 	private Date created;
 	
 	public Integer getId() {

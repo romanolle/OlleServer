@@ -12,7 +12,7 @@ CREATE TABLE public.messages
 (
     id integer NOT NULL DEFAULT nextval('message_id_seq'),
     name text NOT NULL,
-    email text NOT NULL,
+    email text,
     message text NOT NULL,
     created date NOT NULL,
     PRIMARY KEY (id)
