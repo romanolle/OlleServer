@@ -1,7 +1,9 @@
 package nf.co.olle.morosystems.server.dao;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -35,6 +37,22 @@ public class MessageDAO implements IMessageDAO {
 		Session session=factory.getCurrentSession();
 		logger.info("save message method");
 		session.persist(message);
+	}
+
+	/**
+	 * Zjisti pocet zaznamu v tabulce Message.
+	 */
+	@Override
+	@Transactional
+	public Long getRowCount() {
+		logger.info("get row count method");
+		Session session=factory.getCurrentSession();
+		@SuppressWarnings("deprecation")
+		Criteria criteria=session.createCriteria(Message.class);
+		criteria.setProjection(Projections.rowCount());
+		
+		logger.info(criteria.uniqueResult().toString());
+		return (Long)criteria.uniqueResult();
 	}
 
 }

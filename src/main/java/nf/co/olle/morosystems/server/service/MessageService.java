@@ -38,4 +38,12 @@ public class MessageService implements IMessageService{
 		return "Message was sent";
 	}
 
+	/**
+	 * Vraci pocet zprav (messages), ktery dostane z DAO
+	 */
+	@Override
+	public Long getRowCount() {
+		return messageDao.getRowCount();
+	}
+
 }

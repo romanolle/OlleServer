@@ -12,12 +12,13 @@
 	<context:annotation-config></context:annotation-config>
 	<context:component-scan base-package="nf.co.olle.morosystems.server" />
 	
+<!-- Hessian protokol -->
 	<beans:bean name="/" class="org.springframework.remoting.caucho.HessianServiceExporter">
 		<beans:property name="service" ref="messageService"></beans:property>
 		<beans:property name="serviceInterface" value="nf.co.olle.morosystems.server.service.IMessageService"></beans:property>
 	</beans:bean>
 	
-	
+<!-- Vytvoreni pripojeni do PostgreSQL - morosystems -->
 	<beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<beans:property name="driverClassName" value="org.postgresql.Driver"></beans:property>
 		<beans:property name="url" value="jdbc:postgresql://localhost:5432/morosystems"></beans:property>
@@ -42,10 +43,15 @@
 		</beans:property>
 	</beans:bean>
 	
+	
+<!-- vytvoreni instance messageDAO + predani instance hibernate factory -->
 	<beans:bean id="messageDao" class="nf.co.olle.morosystems.server.dao.MessageDAO">
 		<beans:property name="factory" ref="hibernate"></beans:property>
 	</beans:bean>
 	
+<!-- 
+zaregistrovani spring transakci 
+-->
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 	
 	<beans:bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
